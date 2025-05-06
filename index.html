@@ -1,0 +1,164 @@
+
+<!doctype html>
+
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <meta name="theme-color" content="#4F7DC9">
+  <meta charset="UTF-8">
+  <title>Quiz 2</title>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Code+Pro:400|Roboto:400,300,400italic,500,700|Roboto+Mono">
+  <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://storage.googleapis.com/claat-public/codelab-elements.css">
+  <style>
+    .success {
+      color: #1e8e3e;
+    }
+    .error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <google-codelab-analytics gaid="UA-49880327-14" ga4id=""></google-codelab-analytics>
+  <google-codelab codelab-gaid=""
+                  codelab-ga4id=""
+                  id="bases-datos-nosql-grafos"
+                  title="Quiz 2"
+                  environment="web"
+                  feedback-link="">
+    
+      <google-codelab-step label="Bases de Datos NoSQL Orientadas a Grafos" duration="3">
+        <p><br> Los grafos son una estructura de datos que permite modelar relaciones entre entidades mediante nodos y aristas. Se utilizan en bases de datos para representar redes sociales, rutas, recomendaciones, entre otros.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Neo4j" duration="3">
+        <h2 is-upgraded>1. ¿Qué es Neo4j?</h2>
+<p><strong>Neo4j</strong> es una base de datos NoSQL orientada a grafos. Utiliza nodos, relaciones y propiedades para modelar datos de forma natural. Ideal para:</p>
+<ul>
+<li>Redes sociales</li>
+<li>Recomendaciones</li>
+<li>Rutas</li>
+<li>Web semántica</li>
+</ul>
+<h2 is-upgraded>2. Instalación de Neo4j</h2>
+<h3 is-upgraded>Opción 1: Neo4j Desktop</h3>
+<ul>
+<li>Descargar desde: <a href="https://neo4j.com/download" target="_blank">neo4j.com/download</a></li>
+<li>Crear un proyecto local y seleccionar una base de datos</li>
+</ul>
+<h3 is-upgraded>Opción 2: Neo4j Aura (versión en la nube)</h3>
+<ul>
+<li>Accede desde: <a href="https://aura.neo4j.io" target="_blank">aura.neo4j.io</a></li>
+</ul>
+<h3 is-upgraded>Problemas comunes</h3>
+<ul>
+<li>El puerto 7474 ya está en uso</li>
+<li>Java no instalado</li>
+<li>Problemas de permisos</li>
+</ul>
+<h2 is-upgraded>3. Lenguaje Cypher</h2>
+<p>Cypher es el lenguaje de consulta utilizado en Neo4j, similar a SQL pero enfocado en grafos.</p>
+<h2 is-upgraded>4. DDL: Definición de Estructuras</h2>
+<h3 is-upgraded>Crear nodos</h3>
+<pre><code language="language-cypher" class="language-cypher">CREATE (:Persona {nombre: &#39;Ana&#39;, edad: 28});
+</code></pre>
+<h3 is-upgraded>Crear relaciones</h3>
+<pre><code language="language-cypher" class="language-cypher">MATCH (a:Persona {nombre: &#39;Ana&#39;}), (b:Persona {nombre: &#39;Luis&#39;})
+CREATE (a)-[:AMIGO_DE]-&gt;(b);
+</code></pre>
+<h3 is-upgraded>Crear índice</h3>
+<pre><code language="language-cypher" class="language-cypher">CREATE INDEX FOR (p:Persona) ON (p.nombre);
+</code></pre>
+<h3 is-upgraded>Crear restricción</h3>
+<pre><code language="language-cypher" class="language-cypher">CREATE CONSTRAINT FOR (e:Empresa) REQUIRE e.nombre IS UNIQUE;
+</code></pre>
+<h2 is-upgraded>5. DML: Manipulación de Datos</h2>
+<h3 is-upgraded>Insertar nodos</h3>
+<pre><code language="language-cypher" class="language-cypher">CREATE (:Persona {nombre: &#39;Luis&#39;, edad: 32});
+</code></pre>
+<h3 is-upgraded>Crear relaciones</h3>
+<pre><code language="language-cypher" class="language-cypher">MATCH (p:Persona {nombre: &#39;Ana&#39;}), (e:Empresa {nombre: &#39;TechCorp&#39;})
+CREATE (p)-[:TRABAJA_EN]-&gt;(e);
+</code></pre>
+<h3 is-upgraded>Actualizar nodos</h3>
+<pre><code language="language-cypher" class="language-cypher">MATCH (p:Persona {nombre: &#39;Luis&#39;})
+SET p.edad = 33;
+</code></pre>
+<h3 is-upgraded>Eliminar nodos y relaciones</h3>
+<pre><code language="language-cypher" class="language-cypher">MATCH (p:Persona {nombre: &#39;Luis&#39;})
+DETACH DELETE p;
+</code></pre>
+<h2 is-upgraded>6. Demostración práctica: Mini Red Social</h2>
+<h3 is-upgraded>Paso 1: Crear nodos</h3>
+<pre><code language="language-cypher" class="language-cypher">CREATE (:Persona {nombre: &#39;Ana&#39;, edad: 28});
+CREATE (:Persona {nombre: &#39;Luis&#39;, edad: 32});
+CREATE (:Empresa {nombre: &#39;TechCorp&#39;});
+</code></pre>
+<h3 is-upgraded>Paso 2: Crear relaciones</h3>
+<pre><code language="language-cypher" class="language-cypher">MATCH (a:Persona {nombre: &#39;Ana&#39;}), (b:Persona {nombre: &#39;Luis&#39;})
+CREATE (a)-[:AMIGO_DE]-&gt;(b);
+
+MATCH (a:Persona {nombre: &#39;Ana&#39;}), (e:Empresa {nombre: &#39;TechCorp&#39;})
+CREATE (a)-[:TRABAJA_EN]-&gt;(e);
+</code></pre>
+<h3 is-upgraded>Paso 3: Consultar la red</h3>
+<pre><code language="language-cypher" class="language-cypher">MATCH (p:Persona)-[:TRABAJA_EN]-&gt;(e:Empresa)
+RETURN p.nombre, e.nombre;
+</code></pre>
+<h2 is-upgraded>7. Visualización esperada</h2>
+<pre><code>(Ana)-[:AMIGO_DE]-&gt;(Luis)
+(Ana)-[:TRABAJA_EN]-&gt;(TechCorp)
+</code></pre>
+<h2 is-upgraded>8. Conclusión</h2>
+<ul>
+<li>Neo4j es potente para modelar relaciones.</li>
+<li>Cypher es intuitivo para leer y escribir.</li>
+<li>Las operaciones DDL y DML permiten construir y consultar estructuras fácilmente.</li>
+</ul>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="AllegroGraph" duration="3">
+        <p><br> Azure Cosmos DB es una base de datos NoSQL distribuida globalmente que admite múltiples modelos, incluyendo grafos mediante la API de Gremlin. Está optimizada para escalabilidad y baja latencia.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Dgraph" duration="3">
+        <p><br> Aerospike es una base de datos NoSQL orientada a alto rendimiento y baja latencia, comúnmente utilizada para aplicaciones en tiempo real. Aunque no es una base de datos de grafos, puede integrarse con ellas.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Virtuoso" duration="3">
+        <p><br> Virtuoso es una base de datos multi-modelo que permite almacenar datos relacionales y de grafos RDF. Es muy utilizada en aplicaciones semánticas y del web semántico, como Linked Open Data.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="Arango DB" duration="3">
+        <p><br> ArangoDB es una base de datos NoSQL multi-modelo que permite trabajar con grafos, documentos y claves-valor. Su flexibilidad permite consultas complejas a través de AQL, su lenguaje de consulta.</p>
+
+
+      </google-codelab-step>
+    
+      <google-codelab-step label="OrientDB" duration="3">
+        <p><br> OrientDB combina características de bases de datos de grafos y documentos. Soporta relaciones complejas, ACID transactions y es útil para modelado de dominios complejos en tiempo real.</p>
+
+
+      </google-codelab-step>
+    
+  </google-codelab>
+
+  <script src="https://storage.googleapis.com/claat-public/native-shim.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/custom-elements.min.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/prettify.js"></script>
+  <script src="https://storage.googleapis.com/claat-public/codelab-elements.js"></script>
+  <script src="//support.google.com/inapp/api.js"></script>
+
+</body>
+</html>

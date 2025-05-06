@@ -1,0 +1,24 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2025-05-05T22:16:26-05:00",
+  "id": "bases-datos-nosql-grafos",
+  "duration": 21,
+  "title": "Quiz 2",
+  "authors": "Equipo Quiz 2",
+  "summary": "Bases de datos NoSQL orientada a grafos",
+  "source": "grafos.md",
+  "theme": "",
+  "status": [
+    "draft"
+  ],
+  "category": [
+    "desarrollo"
+  ],
+  "tags": [
+    "web"
+  ],
+  "url": "bases-datos-nosql-grafos"
+}
